@@ -21,6 +21,7 @@
 	<modules>
 		<module>architecture</module>
 		<module>easework-core</module>
+		<module>easework-auth</module>
 		<module>easework-user</module>
 		<module>easework-profile</module>
 		<module>easework-org</module>
@@ -31,6 +32,6 @@
 		<module>easework-wallet</module>
 		<module>easework-cms</module>
 		<module>easework-notification</module>
-    		<module>easework-locker</module>
+    	<module>easework-locker</module>
   	</modules>
 </project>

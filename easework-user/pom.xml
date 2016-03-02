@@ -34,6 +34,13 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-joda</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.ews.services</groupId>
+			<artifactId>easework-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ews.services</groupId>
+			<artifactId>easework-auth</artifactId>
+		</dependency>
 	</dependencies>
-
 </project>

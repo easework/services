@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>com.ews.services</groupId>
 	<artifactId>easework-org</artifactId>
-	<version>1.0.0</version>
 	<name>Ease Work Solutions: Organisation</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -18,4 +17,22 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ews.services</groupId>
+			<artifactId>easework-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ews.services</groupId>
+			<artifactId>easework-user</artifactId>
+		</dependency>
+	</dependencies>
 </project>

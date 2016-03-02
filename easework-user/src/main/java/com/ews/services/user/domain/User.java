@@ -1,43 +1,52 @@
 package com.ews.services.user.domain;
 
-import java.io.Serializable;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.ews.services.core.domain.HasCredentials;
+import com.ews.services.core.domain.HasDOB;
+import com.ews.services.core.domain.HasId;
+import com.ews.services.core.domain.HasTypedAssociation;
+
 @Document(collection = "#{appContext.zoneContext}_user")
-public class User implements Serializable {
+public class User implements HasId<String>, HasCredentials<String>, HasTypedAssociation<String>, HasDOB<Date> {
 
 	private static final long serialVersionUID = -3370981650606424867L;
 	
-	private static final String INST_NAME = "PPLS_COLLEGE";
-
 	@Id
 	@Field("_id")
 	private String userId;
 	@Field
 	private String password;
 	@Field
-	private String tempAuthCode;
+	private String entityId;
+	@Field
+	private Date dob;
 	
 	public User() {}
-
-	public User(String userId, String password) {
-
-		this.userId = userId;
-		this.password = password;
+	
+	
+	@Override
+	public String getCredentials() {
+		return this.password;
 	}
 
-	public String getUserId() {
-		return userId;
+	@Override
+	public String getId() {
+		return this.userId;
 	}
 
-	public String getPassword() {
-		return password;
+	@Override
+	public String getAssociation() {
+		return this.entityId;
 	}
 
-	public String getTempAuthCode() {
-		return tempAuthCode;
+
+	@Override
+	public Date getDOB() {
+		return this.dob;
 	}
 }
