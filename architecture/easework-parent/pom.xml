@@ -86,7 +86,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<modules>
-		<module>easework-auth</module>
-	</modules>
 </project>
