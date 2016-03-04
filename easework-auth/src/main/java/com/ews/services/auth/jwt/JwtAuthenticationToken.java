@@ -5,16 +5,16 @@ import java.util.Collection;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
-public class JtwAuthenticationToken extends AbstractAuthenticationToken {
+public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 	
 	private String jWtToken;
 	
-	public JtwAuthenticationToken(final String jWtToken) {
+	public JwtAuthenticationToken(final String jWtToken) {
 		super(null);
 		this.jWtToken = jWtToken;
 	}
 
-	public JtwAuthenticationToken(Collection<? extends GrantedAuthority> authorities) {
+	public JwtAuthenticationToken(Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 	}
 
