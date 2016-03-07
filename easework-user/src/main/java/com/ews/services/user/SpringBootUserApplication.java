@@ -19,25 +19,16 @@ package com.ews.services.user;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.ews.services.user.service.util.AppContext;
+import com.ews.services.auth.annotation.SpringBootSecuredApplication;
 
-@SpringBootApplication
+@SpringBootSecuredApplication
 @EnableMongoRepositories(basePackages = {"com.ews.services.user.repository"})
-@ComponentScan(basePackages = {"com.ews.services.user", "com.ews.services.auth"})
 public class SpringBootUserApplication {
-	
-	@Autowired
-	private AppContext appContext;
-
+		
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(SpringBootUserApplication.class, args);		
 	}

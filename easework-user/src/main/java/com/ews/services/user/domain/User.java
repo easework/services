@@ -11,7 +11,8 @@ import com.ews.services.core.domain.HasDOB;
 import com.ews.services.core.domain.HasId;
 import com.ews.services.core.domain.HasTypedAssociation;
 
-@Document(collection = "#{appContext.zoneContext}_user")
+//@Document(collection = "#{appContext.zoneContext}_user")
+@Document(collection = "user")
 public class User implements HasId<String>, HasCredentials<String>, HasTypedAssociation<String>, HasDOB<Date> {
 
 	private static final long serialVersionUID = -3370981650606424867L;

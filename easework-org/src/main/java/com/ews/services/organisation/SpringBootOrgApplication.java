@@ -21,10 +21,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import com.ews.services.auth.annotation.SpringBootSecuredApplication;
 
-@SpringBootApplication
+
+@SpringBootSecuredApplication
 @EnableMongoRepositories(basePackages = {"com.ews.services.organisation.repository"})
-@ComponentScan(basePackages={"com.ews.services.user", "com.ews.services.auth"})
 public class SpringBootOrgApplication {
 	
 	public static void main(String[] args) throws Exception {
