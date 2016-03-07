@@ -1,6 +1,7 @@
 package com.ews.services.auth.jwt.controller;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,6 @@ public class JwtRestController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(JwtRestController.class);
 	
-	private static final String JWT_DUMMY_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ";
-	
 	@RequestMapping(path={"/signin"}, method=RequestMethod.POST)
 	public ResponseEntity<String> authenticate(@RequestBody User user) {
 				
@@ -29,7 +28,8 @@ public class JwtRestController {
 										.signWith(SignatureAlgorithm.HS256, "secret")
 										.setHeaderParam("typ", "JWT")
 										.setHeaderParam("alg", "HS256")
-										.setSubject("LNJENACHK")										
+										.setSubject("LNJENACHK")
+										.setExpiration(new Date(System.currentTimeMillis() + 3*60*100))
 										.compact();
 			return new ResponseEntity<String>(jWtGenToken, HttpStatus.OK);
 		}

@@ -1,6 +1,7 @@
 package com.ews.services.auth.jwt;
 
 import java.security.Key;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 		try {
 			 if (Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getHeader().getAlgorithm().equals("HS256") &&
 					 Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getHeader().getType().equals("JWT") &&
-					 	Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getBody().getSubject().equals("LNJENACHK")) {
+					 	Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getBody().getSubject().equals("LNJENACHK") && 
+					 		Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getBody().getExpiration().before(new Date())) {
 				 
 				 JwtAuthenticationToken auth = new JwtAuthenticationToken("");
 				 auth.setAuthenticated(true);
