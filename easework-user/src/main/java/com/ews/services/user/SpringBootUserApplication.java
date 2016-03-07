@@ -31,10 +31,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import com.ews.services.user.service.util.AppContext;
 
 @SpringBootApplication
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan(basePackages = {"com.ews.services.user"})
 @EnableMongoRepositories(basePackages = {"com.ews.services.user.repository"})
+@ComponentScan(basePackages = {"com.ews.services.user", "com.ews.services.auth"})
 public class SpringBootUserApplication {
 	
 	@Autowired
