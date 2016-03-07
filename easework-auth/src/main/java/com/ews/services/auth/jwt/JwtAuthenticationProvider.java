@@ -1,14 +1,17 @@
 package com.ews.services.auth.jwt;
 
+import java.security.Key;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.impl.crypto.MacProvider;
 
 @Component("jWtAuthenticationProvider")
 public class JwtAuthenticationProvider implements AuthenticationProvider {
@@ -20,12 +23,31 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 	}
 
 	@Override
-	public Authentication authenticate(Authentication arg0) throws AuthenticationException {
-		LOGGER.info("JWT Auth ProviderCalled");
-		Authentication auth = new JwtAuthenticationToken("");
-		auth.setAuthenticated(true);
+	public Authentication authenticate(Authentication authToken) throws AuthenticationException {
+		LOGGER.info("JWT Auth Provider Called");
+		JwtAuthenticationToken jWtToken = (JwtAuthenticationToken)authToken;
+		Key masterKey = MacProvider.generateKey();
 		
-		return auth;
+		try {
+			 if (Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getHeader().getAlgorithm().equals("HS256") &&
+					 Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getHeader().getType().equals("JWT") &&
+					 	Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getBody().getSubject().equals("LNJENACHK")) {
+				 
+				 JwtAuthenticationToken auth = new JwtAuthenticationToken("");
+				 auth.setAuthenticated(true);
+					
+				return auth;
+			 }
+			 
+			 throw new Exception("Details not Correct");
+			
+		} catch (Exception e) {
+			LOGGER.info("Exc: " + e);
+			throw new AuthenticationCredentialsNotFoundException("JWT Token not valid!");
+		}		
+		
+		
+		
 	}
 
 	@Override

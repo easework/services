@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,7 +22,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.util.Assert;
 
 import com.ews.services.auth.jwt.JwtAuthenticationEntryPoint;
 import com.ews.services.auth.jwt.JwtAuthenticationSuccessHandler;
@@ -42,42 +42,45 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public WebSecurityConfig() {
 		super(false);
 	}
-	
+		
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		Assert.notNull(jWtAuthenticationProvider);
-		auth.authenticationProvider(jWtAuthenticationProvider);
-		
-		//LOGGER.info("Auth Manager Built" + auth.isConfigured());
-		LOGGER.info("Auth Manager Built");
+		auth
+			.authenticationProvider(jWtAuthenticationProvider);
 	}
+	
+	@Override
+	  public void configure(WebSecurity web) throws Exception {
+	    web
+	      .ignoring()
+	         .antMatchers("/signin/**"); // #3
+	  }
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.addFilterBefore(jWtFilter(), UsernamePasswordAuthenticationFilter.class);
+		http
+		.addFilterBefore(jWtFilter(), UsernamePasswordAuthenticationFilter.class);
+	
+		http
+			.authenticationProvider(jWtAuthenticationProvider);
 		
-		http.authorizeRequests()
-				.antMatchers("/login").permitAll();
+		http
+			.csrf().disable();
 		
-		http.formLogin()
+		/*http
+		.authorizeRequests()
+			.antMatchers("/signup").permitAll()
+			.antMatchers("/organisations/**").authenticated()
+		.and()
+		.httpBasic();*/
+		
+		http
+			.authorizeRequests()
+				.antMatchers("/signin").permitAll()
+				.antMatchers("/").fullyAuthenticated()
 			.and()
-				.authorizeRequests()
-					.antMatchers("/auth").authenticated();
-		
-		http.authorizeRequests()
-				.antMatchers("/login").permitAll()
-				.antMatchers("/admin").hasRole("ADMIN")
-				.antMatchers("/api/*").authenticated()
-				.anyRequest().authenticated()
-			.and()
-				.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
-			.and()
-				.sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-			
-		
-		LOGGER.info("JWT Filter Added");
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	
 	@Bean
@@ -92,6 +95,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		jWtFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
 		jWtFilter.setAllowSessionCreation(false);
 		jWtFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/**"));
+		
 		return jWtFilter;
 	}
 	

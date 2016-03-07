@@ -11,6 +11,10 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 	
 	public JwtAuthenticationToken(final String jWtToken) {
 		super(null);
+		this.setjWtToken(jWtToken);
+	}
+
+	private void setjWtToken(String jWtToken) {
 		this.jWtToken = jWtToken;
 	}
 
@@ -35,4 +39,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 		return "12345";
 	}
 
+	public String getjWtToken() {
+		return jWtToken;
+	}
 }

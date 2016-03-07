@@ -27,16 +27,14 @@ public class JwtFilter extends AbstractAuthenticationProcessingFilter {
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
 			throws AuthenticationException, IOException, ServletException {
 		
-		String jWtToken = req.getHeader("Authorization");
+		String jWtToken = getJwtTokenFromHeader(req);
 		if(jWtToken == null) {
-			throw new UsernameNotFoundException("User Not Found");
+			LOGGER.debug("Request Not handled by JWT");
+			return null;
 		}
 		JwtAuthenticationToken jWtAuthToken = new JwtAuthenticationToken(jWtToken);
-		Assert.notNull(getAuthenticationManager());
 		
-		Authentication auth = getAuthenticationManager().authenticate(jWtAuthToken);
-		LOGGER.info("Received: " + auth);
-		return auth;
+		return getAuthenticationManager().authenticate(jWtAuthToken);
 	}
 	
 	@Override
@@ -56,4 +54,19 @@ public class JwtFilter extends AbstractAuthenticationProcessingFilter {
         // and return the response as if the resource was not secured at all
         chain.doFilter(request, response);
     }
+	
+	public static String getJwtTokenFromHeader(HttpServletRequest req) {
+		String authHeader = req.getHeader("Authorization");
+		if(authHeader == null) {
+			return null;
+		}
+		
+		String jWtAuthParts[] = authHeader.split(" ");
+		
+		if(!jWtAuthParts[0].equals("Bearer")) {
+			return null;
+		}
+		
+		return jWtAuthParts[1];
+	}
 }
