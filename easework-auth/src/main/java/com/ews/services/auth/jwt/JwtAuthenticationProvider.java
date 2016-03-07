@@ -22,7 +22,10 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication arg0) throws AuthenticationException {
 		LOGGER.info("JWT Auth ProviderCalled");
-		return new JwtAuthenticationToken("");
+		Authentication auth = new JwtAuthenticationToken("");
+		auth.setAuthenticated(true);
+		
+		return auth;
 	}
 
 	@Override

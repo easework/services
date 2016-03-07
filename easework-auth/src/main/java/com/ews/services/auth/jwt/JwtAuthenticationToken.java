@@ -26,13 +26,13 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 	@Override
 	public Object getCredentials() {
 		// TODO Auto-generated method stub
-		return null;
+		return "12345";
 	}
 
 	@Override
 	public Object getPrincipal() {
 		// TODO Auto-generated method stub
-		return null;
+		return "12345";
 	}
 
 }

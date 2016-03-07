@@ -24,7 +24,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @SpringBootApplication
 @EnableMongoRepositories(basePackages = {"com.ews.services.organisation.repository"})
-@ComponentScan(basePackages={"com.ews.services.user"})
+@ComponentScan(basePackages={"com.ews.services.user", "com.ews.services.auth"})
 public class SpringBootOrgApplication {
 	
 	public static void main(String[] args) throws Exception {
