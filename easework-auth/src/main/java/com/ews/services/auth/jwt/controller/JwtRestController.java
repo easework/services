@@ -29,7 +29,7 @@ public class JwtRestController {
 										.setHeaderParam("typ", "JWT")
 										.setHeaderParam("alg", "HS256")
 										.setSubject("LNJENACHK")
-										.setExpiration(new Date(System.currentTimeMillis() + 3*60*100))
+										.setExpiration(new Date(System.currentTimeMillis() + 30*60*1000))
 										.compact();
 			return new ResponseEntity<String>(jWtGenToken, HttpStatus.OK);
 		}
