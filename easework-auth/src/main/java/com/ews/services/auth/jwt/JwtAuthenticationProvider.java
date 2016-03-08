@@ -35,7 +35,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 					 	Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getBody().getSubject().equals("LNJENACHK") && 
 					 		Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getBody().getExpiration().after(new Date())) {
 				 
-				 JwtAuthenticationToken auth = new JwtAuthenticationToken("");
+				 JwtAuthenticationToken auth = new JwtAuthenticationToken(jWtToken.getjWtToken(), "pass", "lnj", null);
 				 auth.setAuthenticated(true);
 					
 				return auth;

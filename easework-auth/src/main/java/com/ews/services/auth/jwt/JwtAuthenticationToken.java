@@ -7,36 +7,35 @@ import org.springframework.security.core.GrantedAuthority;
 
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 	
+	private static final long serialVersionUID = -2918865729722691838L;
+	
 	private String jWtToken;
+	private Object credentials, principal;
 	
 	public JwtAuthenticationToken(final String jWtToken) {
-		super(null);
-		this.setjWtToken(jWtToken);
-	}
-
-	private void setjWtToken(String jWtToken) {
-		this.jWtToken = jWtToken;
+		this(jWtToken, null, null, null);
 	}
 
 	public JwtAuthenticationToken(Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2918865729722691838L;
-
+	
+	public JwtAuthenticationToken(final String jWtToken, Object credentials, 
+			Object principal, Collection<? extends GrantedAuthority> authorities) {
+		super(authorities);
+		this.jWtToken = jWtToken;
+		this.credentials = credentials;
+		this.principal = principal;
+	}
+	
 	@Override
 	public Object getCredentials() {
-		// TODO Auto-generated method stub
-		return "12345";
+		return credentials;
 	}
 
 	@Override
 	public Object getPrincipal() {
-		// TODO Auto-generated method stub
-		return "12345";
+		return principal;
 	}
 
 	public String getjWtToken() {

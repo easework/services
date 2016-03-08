@@ -5,25 +5,26 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.ews.services.core.domain.HasCredentials;
 import com.ews.services.core.domain.HasDOB;
 import com.ews.services.core.domain.HasId;
 import com.ews.services.core.domain.HasTypedAssociation;
 
-//@Document(collection = "#{appContext.zoneContext}_user")
-@Document(collection = "user")
+@Document(collection = "#{tenantProvider.tenant}_user")
 public class User implements HasId<String>, HasCredentials<String>, HasTypedAssociation<String>, HasDOB<Date> {
 
 	private static final long serialVersionUID = -3370981650606424867L;
 	
+	public static final String context = SecurityContextHolder.getContext().getAuthentication().getName();
+	
 	@Id
-	@Field("_id")
-	private String userId;
+	private String id;
 	@Field
-	private String password;
+	private String credentials;
 	@Field
-	private String entityId;
+	private String association;
 	@Field
 	private Date dob;
 	
@@ -32,17 +33,17 @@ public class User implements HasId<String>, HasCredentials<String>, HasTypedAsso
 	
 	@Override
 	public String getCredentials() {
-		return this.password;
+		return this.credentials;
 	}
 
 	@Override
 	public String getId() {
-		return this.userId;
+		return this.id;
 	}
 
 	@Override
 	public String getAssociation() {
-		return this.entityId;
+		return this.association;
 	}
 
 
