@@ -9,9 +9,10 @@ import com.ews.services.core.domain.HasAddress;
 import com.ews.services.core.domain.HasId;
 import com.ews.services.core.domain.HasOwner;
 import com.ews.services.core.domain.HasParent;
+import com.ews.services.core.domain.HasProfile;
 
 @Document(collection="organisation")
-public class Organisation implements HasId<String>, HasOwner<String>, HasAddress<Address>, HasParent<String> {
+public class Organisation implements HasId<String>, HasOwner<String>, HasAddress<Address>, HasParent<String> , HasProfile<OrganisationProfile>{
 
 	/**
 	 * 
@@ -26,32 +27,43 @@ public class Organisation implements HasId<String>, HasOwner<String>, HasAddress
 	private Address address;
 	@Field
 	private String parent;
+	@Field
+	private String locker;
+	@Field
+	private String wallet;
+	@Field	
+	private OrganisationProfile profile;
 	
+	public String getLocker() {
+		return locker;
+	}
+
+	public String getWallet() {
+		return wallet;
+	}
 		
 	@Override
 	public String getId() {
 		return this.id;
 	}
 
-
-
 	@Override
 	public String getOwner() {
 		return this.owner;
 	}
-
-
 
 	@Override
 	public Address getAddress() {
 		return this.address;
 	}
 
-
-
 	@Override
 	public String getParent() {
 		return this.parent;
 	}
 
+	@Override
+	public OrganisationProfile getProfile() {
+		return profile;
+	}
 }
