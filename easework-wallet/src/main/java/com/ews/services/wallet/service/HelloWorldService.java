@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ews.services.simple.service;
+package com.ews.services.wallet.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

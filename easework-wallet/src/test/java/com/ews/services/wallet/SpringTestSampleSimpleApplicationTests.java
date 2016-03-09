@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package com.ews.services.simple;
+package com.ews.services.wallet;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ews.services.wallet.WalletSpringBootApplication;
+
 /**
- * Tests for {@link SampleSimpleApplication}.
+ * Tests for {@link WalletSpringBootApplication}.
  * 
  * @author Dave Syer
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SampleSimpleApplication.class)
+@SpringApplicationConfiguration(classes = WalletSpringBootApplication.class)
 public class SpringTestSampleSimpleApplicationTests {
 
 	@Test
