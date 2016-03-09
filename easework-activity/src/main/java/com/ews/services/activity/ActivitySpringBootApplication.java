@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package com.ews.services.simple.service;
+package com.ews.services.activity;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.SpringApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-@Component
-public class HelloWorldService {
+import com.ews.services.auth.annotation.SpringBootSecuredApplication;
 
-	@Value("${name:World}")
-	private String name;
+@SpringBootSecuredApplication
+@EnableMongoRepositories(basePackages={"com.ews.services.activity.repository"})
+public class ActivitySpringBootApplication {
 
-	public String getHelloMessage() {
-		return "Hello " + this.name;
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(ActivitySpringBootApplication.class, args);
 	}
-
 }

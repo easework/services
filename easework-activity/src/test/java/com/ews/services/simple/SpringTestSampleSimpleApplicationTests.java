@@ -21,13 +21,15 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ews.services.activity.ActivitySpringBootApplication;
+
 /**
- * Tests for {@link SampleSimpleApplication}.
+ * Tests for {@link ActivitySpringBootApplication}.
  * 
  * @author Dave Syer
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SampleSimpleApplication.class)
+@SpringApplicationConfiguration(classes = ActivitySpringBootApplication.class)
 public class SpringTestSampleSimpleApplicationTests {
 
 	@Test
