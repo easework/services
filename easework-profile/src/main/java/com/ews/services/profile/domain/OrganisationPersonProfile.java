@@ -1,6 +1,6 @@
 package com.ews.services.profile.domain;
 
-public class OrganisationPersonProfile extends PersonProfile {
+public class OrganisationPersonProfile extends Person {
 
 	/**
 	 * 

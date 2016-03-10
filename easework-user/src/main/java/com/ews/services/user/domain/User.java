@@ -2,53 +2,55 @@ package com.ews.services.user.domain;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.ews.services.core.domain.HasCredentials;
-import com.ews.services.core.domain.HasDOB;
+import com.ews.services.auth.domain.ApplicationUser;
+import com.ews.services.core.domain.HasDateOfBirth;
+import com.ews.services.core.domain.HasEmail;
 import com.ews.services.core.domain.HasId;
+import com.ews.services.core.domain.HasMobile;
 import com.ews.services.core.domain.HasTypedAssociation;
 
-@Document(collection = "#{tenantProvider.tenant}_user")
-public class User implements HasId<String>, HasCredentials<String>, HasTypedAssociation<String>, HasDOB<Date> {
+//@Document(collection = "#{tenantProvider.tenant}_user")
+@Document(collection = "user")
+public class User implements HasId<String>, HasTypedAssociation<String>, HasDateOfBirth<Date>, HasEmail<String>, HasMobile<String> {
 
 	private static final long serialVersionUID = -3370981650606424867L;
-	
-	public static final String context = SecurityContextHolder.getContext().getAuthentication().getName();
-	
-	@Id
+
 	private String id;
-	@Field
-	private String credentials;
-	@Field
+	private String mobileNumber;
+	private String email;
+	private Date dateOfBirth;
 	private String association;
-	@Field
-	private Date dob;
+	@DBRef private ApplicationUser applicationUser;
 	
-	public User() {}
-	
-	
-	@Override
-	public String getCredentials() {
-		return this.credentials;
+	public ApplicationUser getApplicationUser() {
+		return applicationUser;
 	}
 
 	@Override
-	public String getId() {
-		return this.id;
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	@Override
+	public String getEmail() {
+		return email;
+	}
+
+	@Override
+	public Date getDateOfBirth() {
+		return dateOfBirth;
 	}
 
 	@Override
 	public String getAssociation() {
-		return this.association;
+		return association;
 	}
-
-
+	
 	@Override
-	public Date getDOB() {
-		return this.dob;
+	public String getId() {
+		return id;
 	}
 }

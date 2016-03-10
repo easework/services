@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package com.ews.services.organisation;
+package com.ews.services.profile;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.ews.services.auth.annotation.SpringBootSecuredApplication;
 
-
 @SpringBootSecuredApplication
-public class SpringBootOrgApplication {
-	
+@EnableMongoRepositories(basePackages={"com.ews.services.profile.repository"})
+public class ProfileSpringBootApplication {
+
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(SpringBootOrgApplication.class, args);		
+		SpringApplication.run(ProfileSpringBootApplication.class, args);
 	}
 }

@@ -22,10 +22,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.springframework.boot.test.OutputCapture;
 
+import com.ews.services.profile.ProfileSpringBootApplication;
+
 import static org.junit.Assert.assertTrue;
 
 /**
- * Tests for {@link SampleSimpleApplication}.
+ * Tests for {@link ProfileSpringBootApplication}.
  * 
  * @author Dave Syer
  * @author Phillip Webb
@@ -54,14 +56,14 @@ public class SampleSimpleApplicationTests {
 
 	@Test
 	public void testDefaultSettings() throws Exception {
-		SampleSimpleApplication.main(new String[0]);
+		ProfileSpringBootApplication.main(new String[0]);
 		String output = this.outputCapture.toString();
 		assertTrue("Wrong output: " + output, output.contains("Hello Phil"));
 	}
 
 	@Test
 	public void testCommandLineOverrides() throws Exception {
-		SampleSimpleApplication.main(new String[] { "--name=Gordon" });
+		ProfileSpringBootApplication.main(new String[] { "--name=Gordon" });
 		String output = this.outputCapture.toString();
 		assertTrue("Wrong output: " + output, output.contains("Hello Gordon"));
 	}

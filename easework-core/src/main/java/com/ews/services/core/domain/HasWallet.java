@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 import org.springframework.data.mongodb.core.mapping.Field;
 
-public interface HasMobile<T> extends Serializable {
+@FunctionalInterface
+public interface HasWallet<T> extends Serializable {
 	@Field
-	T getMobileNumber();
+	T getWallet();
 }

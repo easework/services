@@ -32,7 +32,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 		try {
 			 if (Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getHeader().getAlgorithm().equals("HS256") &&
 					 Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getHeader().getType().equals("JWT") &&
-					 	Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getBody().getSubject().equals("LNJENACHK") && 
+					 	Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getBody().getSubject() != null && 
 					 		Jwts.parser().setSigningKey("secret").parseClaimsJws(jWtToken.getjWtToken()).getBody().getExpiration().after(new Date())) {
 				 
 				 JwtAuthenticationToken auth = new JwtAuthenticationToken(jWtToken.getjWtToken(), "pass", "lnj", null);
