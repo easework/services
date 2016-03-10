@@ -1,8 +1,6 @@
 package com.ews.services.organisation.domain;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.ews.services.core.domain.Address;
 import com.ews.services.core.domain.HasAddress;
@@ -19,19 +17,12 @@ public class Organisation implements HasId<String>, HasOwner<String>, HasAddress
 	 */
 	private static final long serialVersionUID = 7330020441441639429L;
 	
-	@Id
 	private String id;
-	@Field
 	private String owner;
-	@Field
 	private Address address;
-	@Field
 	private String parent;
-	@Field
 	private String locker;
-	@Field
 	private String wallet;
-	@Field	
 	private OrganisationProfile profile;
 	
 	public String getLocker() {

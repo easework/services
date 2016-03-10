@@ -11,20 +11,16 @@ import com.ews.services.core.domain.HasMobile;
 import com.ews.services.core.domain.HasProfile;
 
 @Document(collection="entity")
-public class Entity implements HasId<String>, HasAddress<Address>, HasEmail, HasMobile, HasProfile<String> {
+public class Entity implements HasId<String>, HasAddress<Address>, HasEmail<String>, HasMobile, HasProfile<String> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4618336146678918728L;
 	
-	@Field
 	private String id;
-	@Field
 	private String profile;
-	@Field
 	private String email;
-	@Field
 	private String mobileNumber;
 	@Field
 	private Address address;
