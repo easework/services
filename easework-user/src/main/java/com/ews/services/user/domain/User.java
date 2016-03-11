@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.ews.services.auth.domain.ApplicationUser;
+import com.ews.services.auth.domain.MongoUser;
 import com.ews.services.core.domain.HasDateOfBirth;
 import com.ews.services.core.domain.HasEmail;
 import com.ews.services.core.domain.HasId;
@@ -23,9 +23,9 @@ public class User implements HasId<String>, HasTypedAssociation<String>, HasDate
 	private String email;
 	private Date dateOfBirth;
 	private String association;
-	@DBRef private ApplicationUser applicationUser;
+	@DBRef private MongoUser applicationUser;
 	
-	public ApplicationUser getApplicationUser() {
+	public MongoUser getApplicationUser() {
 		return applicationUser;
 	}
 

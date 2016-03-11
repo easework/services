@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ews.services.auth.domain.ApplicationUser;
-import com.ews.services.auth.repository.ApplicationUserRepository;
+import com.ews.services.auth.domain.MongoUser;
+import com.ews.services.auth.repository.MongoUserRepository;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -24,12 +24,12 @@ public class JwtRestController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JwtRestController.class);
 	
 	@Autowired
-	private ApplicationUserRepository applicationUserRepository;
+	private MongoUserRepository applicationUserRepository;
 	
 	@RequestMapping(path={"/signin"}, method=RequestMethod.POST, consumes={"application/json"})
-	public ResponseEntity<String> authenticate(@RequestBody ApplicationUser user) {
+	public ResponseEntity<String> authenticate(@RequestBody MongoUser user) {
 		
-		ApplicationUser shadow = applicationUserRepository.findByUsername(user.getUsername());
+		MongoUser shadow = applicationUserRepository.findByUsername(user.getUsername());
 		
 		if(shadow == null) {
 			return new ResponseEntity<String>("Username or Password is not Valid!", HttpStatus.UNAUTHORIZED);

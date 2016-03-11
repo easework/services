@@ -7,8 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@Document(collection="shadow")
-public class ApplicationUser implements UserDetails {
+@Document(collection="credentials")
+public class MongoUser implements UserDetails {
 
 	/**
 	 * 
@@ -28,11 +28,11 @@ public class ApplicationUser implements UserDetails {
 	@Field
 	private boolean enabled;
 	@Field
-	private Collection<ApplicationRole> authorities;
+	private Collection<UserRole> authorities;
 	
 
 	@Override
-	public Collection<ApplicationRole> getAuthorities() {
+	public Collection<UserRole> getAuthorities() {
 		return authorities;
 	}
 

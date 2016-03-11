@@ -3,10 +3,10 @@ package com.ews.services.auth.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 
-import com.ews.services.auth.domain.ApplicationUser;
+import com.ews.services.auth.domain.MongoUser;
 
 @Component("applicationUserRepository")
-public interface ApplicationUserRepository extends MongoRepository<ApplicationUser, String> {
-	public ApplicationUser findByUsername(String username);
+public interface MongoUserRepository extends MongoRepository<MongoUser, String> {
+	public MongoUser findByUsername(String username);
 
 }

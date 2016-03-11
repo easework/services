@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -16,6 +17,9 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 public class JwtFilter extends AbstractAuthenticationProcessingFilter {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(JwtFilter.class);
+	
+	@Value("management.security.enabled")
+	private String securityEnabled;
 	
 	public JwtFilter(String filterPath) {
 		super(filterPath);
@@ -38,7 +42,11 @@ public class JwtFilter extends AbstractAuthenticationProcessingFilter {
 	@Override
 	protected boolean requiresAuthentication(javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response) {
-		LOGGER.info("Require auth called");
+		
+		if(securityEnabled != null && !Boolean.valueOf(securityEnabled)) {
+			LOGGER.info("Global Security Disabled");
+			return false;
+		}
 		return true;
 	}
 	

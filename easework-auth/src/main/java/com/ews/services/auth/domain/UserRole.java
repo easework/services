@@ -3,7 +3,7 @@ package com.ews.services.auth.domain;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.core.GrantedAuthority;
 
-public class ApplicationRole implements GrantedAuthority {
+public class UserRole implements GrantedAuthority {
 
 	/**
 	 * 
@@ -13,9 +13,9 @@ public class ApplicationRole implements GrantedAuthority {
 	@Field
 	private String authority;
 	
-	public ApplicationRole(){}
+	public UserRole(){}
 	
-	public ApplicationRole(String role) {
+	public UserRole(String role) {
 		this.authority = role;
 	}
 

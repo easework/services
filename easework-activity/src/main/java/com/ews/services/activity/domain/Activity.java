@@ -16,12 +16,13 @@ import com.ews.services.core.domain.HasPayment;
 import com.ews.services.core.domain.HasSchedule;
 import com.ews.services.core.domain.HasStartAndEndDates;
 import com.ews.services.core.domain.HasSupervisor;
+import com.ews.services.core.domain.HasTask;
 import com.ews.services.core.domain.HasTracker;
 
 @Document(collection="activity")
-public class Activity implements HasId<String>, HasName<String>, 
-	HasOwner<String>, HasSchedule<String>, HasStartAndEndDates<Date>, HasParent<Activity>, HasPayment<String>, HasSupervisor<String>, 
-		HasTracker<String> {
+public class Activity<T> implements HasId<String>, HasName<String>, 
+	HasOwner<String>, HasSchedule<String>, HasStartAndEndDates<Date>, HasParent<Activity<T>>, HasPayment<String>, HasSupervisor<String>, 
+		HasTracker<String>, HasTask<Task<T>> {
 
 	/**
 	 * 
@@ -41,7 +42,7 @@ public class Activity implements HasId<String>, HasName<String>,
 	@Field
 	private Date endDate;
 	@DBRef
-	private Activity parent;
+	private Activity<T> parent;
 	@Field
 	private Boolean payable = Boolean.FALSE;
 	@Field
@@ -52,6 +53,8 @@ public class Activity implements HasId<String>, HasName<String>,
 	private Collection<String> allSupervisors;
 	@Field
 	private String tracker;
+	
+	private Collection<Task<T>> tasks;
 	
 	@Override
 	public String getOwner() {
@@ -84,7 +87,7 @@ public class Activity implements HasId<String>, HasName<String>,
 	}
 
 	@Override
-	public Activity getParent() {
+	public Activity<T> getParent() {
 		return parent;
 	}
 
@@ -113,5 +116,10 @@ public class Activity implements HasId<String>, HasName<String>,
 	@Override
 	public String getTracker() {
 		return tracker;
+	}
+
+	@Override
+	public Collection<Task<T>> getTasks() {
+		return tasks;
 	}
 }
