@@ -6,8 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -30,10 +32,14 @@ import com.ews.services.auth.jwt.JwtFilter;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true, order=1)
+@ComponentScan
 @Order(2)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);
+	
+	@Value("${management.security.enabled}")
+	private String securityEnabled;
 	
 	@Autowired
 	@Qualifier("jWtAuthenticationProvider")
@@ -90,7 +96,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public Filter jWtFilter() throws Exception {
-		JwtFilter jWtFilter = new JwtFilter("/api/*");
+		JwtFilter jWtFilter = new JwtFilter("/api/*", Boolean.valueOf(securityEnabled));
 		jWtFilter.setAuthenticationManager(authenticationManager());
 		jWtFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
 		jWtFilter.setAllowSessionCreation(false);

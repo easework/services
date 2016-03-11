@@ -3,10 +3,8 @@ package com.ews.services.activity.domain;
 import java.util.Collection;
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.ews.services.core.domain.HasId;
 import com.ews.services.core.domain.HasName;
@@ -20,41 +18,28 @@ import com.ews.services.core.domain.HasTask;
 import com.ews.services.core.domain.HasTracker;
 
 @Document(collection="activity")
-public class Activity<T> implements HasId<String>, HasName<String>, 
-	HasOwner<String>, HasSchedule<String>, HasStartAndEndDates<Date>, HasParent<Activity<T>>, HasPayment<String>, HasSupervisor<String>, 
-		HasTracker<String>, HasTask<Task<T>> {
+public class Activity implements HasId<String>, HasName<String>, 
+	HasOwner<String>, HasSchedule<String>, HasStartAndEndDates<Date>, HasParent<Activity>, HasPayment<String>, HasSupervisor<String>, 
+		HasTracker<String>/*, HasTask<Task>*/ {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5952716259182176766L;
 	
-	@Id
 	private String id;
-	@Field
 	private String owner;
-	@Field
 	private String name;
-	@Field
 	private String schedule;
-	@Field
 	private Date startDate;
-	@Field
 	private Date endDate;
-	@DBRef
-	private Activity<T> parent;
-	@Field
+	@DBRef private Activity parent;
 	private Boolean payable = Boolean.FALSE;
-	@Field
 	private String payment;
-	@Field
 	private String primarySupervisor;
-	@Field
 	private Collection<String> allSupervisors;
-	@Field
-	private String tracker;
-	
-	private Collection<Task<T>> tasks;
+	private String tracker;	
+	private Collection<Task> tasks;
 	
 	@Override
 	public String getOwner() {
@@ -87,7 +72,7 @@ public class Activity<T> implements HasId<String>, HasName<String>,
 	}
 
 	@Override
-	public Activity<T> getParent() {
+	public Activity getParent() {
 		return parent;
 	}
 
@@ -118,8 +103,8 @@ public class Activity<T> implements HasId<String>, HasName<String>,
 		return tracker;
 	}
 
-	@Override
-	public Collection<Task<T>> getTasks() {
+	/*@Override
+	public <D> Collection<Task<D>> getTasks() {
 		return tasks;
-	}
+	}*/
 }
